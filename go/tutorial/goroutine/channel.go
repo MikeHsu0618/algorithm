@@ -29,12 +29,12 @@ func main() {
 	println(num2)                                                      // 10
 	fmt.Printf("channel len=%v cap=%v \n", len(intChan), cap(intChan)) // 1, 3
 
-	// 6. 再沒有使用協程的情況下 , 如果五們的管道數據已經全部取出, 再取就會報告 deadlock
+	// 6. 再沒有使用協程的情況下 , 如果我們的管道數據已經全部取出, 再取就會報告 deadlock
 	num3 := <-intChan
 	num4 := <-intChan
 	println(num3, num4) // 200, 100
 
-	//num5 := <-intChan   // 報錯, 需要保護機制
+	// num5 := <-intChan   // 報錯, 需要保護機制
 
 	intChan <- 55 // 當 channel 取出後可以再繼續放入
 	<-intChan     // 可以單獨取出, 不賦予變數
