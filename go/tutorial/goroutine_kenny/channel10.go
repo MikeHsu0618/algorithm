@@ -17,6 +17,7 @@ func main() {
 	jobs := make(chan worker, num)
 	results := make(chan worker, num)
 
+	// 執行了五個 worker
 	for i := 1; i <= 5; i++ {
 		go work(jobs, results)
 	}
