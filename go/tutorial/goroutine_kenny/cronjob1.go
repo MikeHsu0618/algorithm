@@ -17,8 +17,10 @@ func main() {
 		select {
 		case err := <-errChan1:
 			fmt.Println(err.Error())
+			return
 		case err := <-errChan2:
 			fmt.Println(err.Error())
+			return
 		}
 	}
 }
