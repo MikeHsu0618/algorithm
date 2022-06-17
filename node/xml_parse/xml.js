@@ -1,7 +1,7 @@
 fs = require('fs');
 var parser = require('xml2json');
 
-fs.readFile( './example.xml', function(err, data) {
+fs.readFile( './examples.xml', function(err, data) {
     var json = JSON.parse(parser.toJson(data));
     let competitor = []
     let inningnr = []

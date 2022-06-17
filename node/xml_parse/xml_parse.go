@@ -7,7 +7,7 @@ import (
 
 func main() {
 	// open xml
-	file, err := os.Open("example.xml")
+	file, err := os.Open("examples.xml")
 	if err != nil {
 		log.Fatal(err)
 	}
