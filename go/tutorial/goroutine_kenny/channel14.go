@@ -8,7 +8,7 @@ import (
 var boolChan = make(chan bool, 1)
 
 func main() {
-	// example 1
+	// examples 1
 	// time.AfterFunc 前面放時間 後面放 func
 	// 指定幾秒後呼叫指定的 func
 	time.AfterFunc(2*time.Second, hello)
@@ -18,7 +18,7 @@ func main() {
 
 	fmt.Println("done")
 
-	// example 2
+	// examples 2
 	time.AfterFunc(2*time.Second, hello2)
 	// 可以利用 channel 的管道 block 住
 	<-boolChan
