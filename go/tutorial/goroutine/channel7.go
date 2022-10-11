@@ -17,7 +17,7 @@ func main() {
 		intChan <- i
 	}
 
-	// 2. 定一一個管道 5 個數據 string
+	// 2. 定義一個管道 5 個數據 string
 	stringChan := make(chan string, 5)
 	for i := 0; i < 5; i++ {
 		stringChan <- "hello" + fmt.Sprintf("%d", i)
