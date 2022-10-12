@@ -57,5 +57,5 @@ func test2() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(queryStr)) // {} 輸出為零值
+	fmt.Println(string(queryStr)) // {"string":"","integer":0}
 }
