@@ -7,6 +7,7 @@ import (
 	"google.golang.org/api/option"
 	"log"
 	"os"
+	"time"
 )
 
 func main() {
@@ -24,11 +25,38 @@ func main() {
 		log.Fatalln(err)
 	}
 	defer client.Close()
+	doc := make(map[string]interface{})
+	doc["stringExample"] = "Hello world!"
+	doc["booleanExample"] = true
+	doc["numberExample"] = 3.14159265
+	doc["dateExample"] = time.Now()
+	doc["arrayExample"] = []interface{}{5, true, "hello"}
+	doc["nullExample"] = nil
+	doc["objectExample"] = map[string]interface{}{
+		"a": 5,
+		"b": true,
+	}
+	_, err = client.Collection("mts-local").Doc("LA").Set(ctx, doc)
 
-	_, err = client.Collection("mts-local").Doc("LA").Set(ctx, map[string]interface{}{
-		"name":    "Los Angeles",
-		"state":   "CA",
-		"country": "USA",
-	})
+	type City struct {
+		Name       string   `firestore:"name,omitempty"`
+		State      string   `firestore:"state,omitempty"`
+		Country    string   `firestore:"country,omitempty"`
+		Capital    bool     `firestore:"capital,omitempty"`
+		Population int64    `firestore:"population,omitempty"`
+		Regions    []string `firestore:"regions,omitempty"`
+	}
+
+	city := City{
+		Name:    "Los A1231211341341343ngeles",
+		Country: "USㄉˇ123A",
+	}
+
+	_, err = client.Collection("mts-local").Doc("citys").Set(ctx, city)
+	if err != nil {
+		// Handle any errors in an appropriate way, such as returning them.
+		log.Printf("An error has occurred: %s", err)
+	}
+
 	fmt.Println("done")
 }
