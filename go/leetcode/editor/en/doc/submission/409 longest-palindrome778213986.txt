@@ -1,0 +1,18 @@
+func longestPalindrome(s string) int {
+    sMap := make(map[rune]int)
+    for _, v := range s {
+        sMap[v]++ 
+    }
+    count := 0
+    for _, v := range sMap {
+        if v%2 == 1 {
+            count++
+        }
+    }
+    if count > 0 {
+        return len(s) - count + 1
+    }
+    return len(s);
+}
+//runtime:0 ms
+//memory:2.2 MB
