@@ -10,12 +10,10 @@ func TestSplitByGoTests(t *testing.T) {
 		s   string
 		sep string
 	}
-	tests := []struct {
+	var tests []struct {
 		name       string
 		args       args
 		wantResult []string
-	}{
-		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
