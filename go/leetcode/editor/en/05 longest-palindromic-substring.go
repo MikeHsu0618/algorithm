@@ -33,7 +33,7 @@ package main
 
 //leetcode submit region begin(Prohibit modification and deletion)
 // TODO 回來用馬拉車解法再實現一次
-func longestPalindrome(s string) string {
+func longestPalindrome1(s string) string {
 	// 判斷邊界
 	if len(s) < 2 {
 		return s
