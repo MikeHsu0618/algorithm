@@ -73,4 +73,23 @@ func mergeKLists(lists []*ListNode) *ListNode {
 	return result
 }
 
+// 解法二： 使用分治法優化解法一
+func mergeKLists2(lists []*ListNode) *ListNode {
+	if lists == nil || len(lists) == 0 {
+		return nil
+	}
+
+	for len(lists) > 1 {
+		// pop 2 lists
+		l1 := lists[0]
+		l2 := lists[1]
+		lists = lists[2:]
+
+		merged := mergeTwoLists(l1, l2)
+		lists = append(lists, merged)
+	}
+
+	return lists[0]
+}
+
 //leetcode submit region end(Prohibit modification and deletion)
