@@ -41,10 +41,34 @@ package main
 // Related Topics Array Binary Search 👍 18402 👎 1094
 
 //leetcode submit region begin(Prohibit modification and deletion)
-// 使用二分搜尋法找到 0 的位置
-// 再使用一次二分搜尋法找到 target 位置
+// 使用二分搜尋法，並判斷 target 位於哪一側，直到找到為止
 func search(nums []int, target int) int {
+	if len(nums) == 0 {
+		return -1
+	}
 
+	left, right := 0, len(nums)-1
+	for left <= right {
+		middle := (left + right) / 2
+		if nums[middle] == target {
+			return middle
+		}
+		// 找到被排序的那一側
+		if nums[middle] < nums[right] {
+			if target > nums[middle] && target <= nums[right] {
+				left = middle + 1
+			} else {
+				right = middle - 1
+			}
+		} else {
+			if target < nums[middle] && target >= nums[left] {
+				right = middle - 1
+			} else {
+				left = middle + 1
+			}
+		}
+	}
+	return -1
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
