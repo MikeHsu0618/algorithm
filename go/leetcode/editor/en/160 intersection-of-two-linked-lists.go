@@ -126,7 +126,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 		count = lenB - lenA
 	}
 
-	for headA != nil && headB != nil {
+	for fast != nil && slow != nil {
 		if count > 0 {
 			fast = fast.Next
 			count--
