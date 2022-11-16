@@ -53,9 +53,25 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// 解法三：優化解法二一點點
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
+	dummy := &ListNode{Next: head}
+	slow, fast := dummy, dummy
+	for fast.Next != nil {
+		fast = fast.Next
+		if n > 0 {
+			n--
+			continue
+		}
+		slow = slow.Next
+	}
+	slow.Next = slow.Next.Next
+	return dummy.Next
+}
+
 // 解法二： 使用快慢指針＋ dummy node 的概念，首先將快指針從首部移動到第 n 個距離
 // 使雙指針同時移動，直到快指針觸碰到盡頭，則慢指針的下一位數值即為倒數第 n 個
-func removeNthFromEnd(head *ListNode, n int) *ListNode {
+func removeNthFromEnd2(head *ListNode, n int) *ListNode {
 	dummy := &ListNode{Next: head}
 	slow, fast := dummy, dummy
 	for count := 1; fast.Next != nil; count++ {
