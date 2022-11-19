@@ -44,6 +44,7 @@ package main
 // Related Topics String Stack 👍 16440 👎 837
 
 //leetcode submit region begin(Prohibit modification and deletion)
+// [V] 複習
 func isValid(s string) bool {
 	// 處理 edge case ，單數個字串必不滿足條件
 	if len(s)%2 != 0 {
