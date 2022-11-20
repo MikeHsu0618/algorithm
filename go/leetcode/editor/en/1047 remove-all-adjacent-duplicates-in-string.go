@@ -39,6 +39,8 @@ package main
 // Related Topics String Stack 👍 5145 👎 203
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+// 解法一：遇到匹配問題是 stack 的強項
 func removeDuplicates(s string) string {
 	stack := []byte{}
 	for i := 0; i < len(s); i++ {
