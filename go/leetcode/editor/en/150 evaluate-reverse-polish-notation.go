@@ -59,34 +59,35 @@ import "strconv"
 // 解法：將數值持續丟進 stack，直到遇到運算子才取出兩個數值進行運算
 func evalRPN(tokens []string) int {
 	if len(tokens) == 1 {
-		num, _ := strconv.Atoi(string(tokens[0]))
+		num, _ := strconv.Atoi(tokens[0])
 		return num
 	}
 	amount := 0
 	stack := make([]int, 0)
 	operators := map[string]struct{}{
-		"+": struct{}{},
-		"-": struct{}{},
-		"*": struct{}{},
-		"/": struct{}{},
+		"+": {},
+		"-": {},
+		"*": {},
+		"/": {},
 	}
 	for i := 0; i < len(tokens); i++ {
 		if _, ok := operators[tokens[i]]; !ok {
-			num, _ := strconv.Atoi(string(tokens[i]))
+			num, _ := strconv.Atoi(tokens[i])
 			stack = append(stack, num)
 			continue
 		}
+		num1, num2 := stack[len(stack)-2], stack[len(stack)-1]
 		if tokens[i] == "+" {
-			amount = (stack[len(stack)-2]) + stack[len(stack)-1]
+			amount = num1 + num2
 		}
 		if tokens[i] == "-" {
-			amount = (stack[len(stack)-2]) - stack[len(stack)-1]
+			amount = num1 - num2
 		}
 		if tokens[i] == "*" {
-			amount = (stack[len(stack)-2]) * stack[len(stack)-1]
+			amount = num1 * num2
 		}
 		if tokens[i] == "/" {
-			amount = (stack[len(stack)-2]) / stack[len(stack)-1]
+			amount = num1 / num2
 		}
 		stack = append(stack[:len(stack)-2], amount)
 	}
