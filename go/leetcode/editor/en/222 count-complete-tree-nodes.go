@@ -55,6 +55,28 @@ import "container/list"
  *     Right *TreeNode
  * }
  */
+
+// 解法四：使用完全二叉樹特性（節點數等於 2^depth - 1）
+func countNodes(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	left, right := root.Left, root.Right
+	leftLen, rightLen := 0, 0
+	for left != nil {
+		left = left.Left
+		leftLen++
+	}
+	for right != nil {
+		right = right.Right
+		rightLen++
+	}
+	if leftLen == rightLen {
+		return 2<<leftLen - 1
+	}
+	return 1 + countNodes(root.Left) + countNodes(root.Right)
+}
+
 // 解法三：迭代 BFS
 func countNodes3(root *TreeNode) int {
 	if root == nil {
@@ -80,7 +102,7 @@ func countNodes3(root *TreeNode) int {
 }
 
 // 解法二：遞迴版本二
-func countNodes(root *TreeNode) int {
+func countNodes2(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
