@@ -45,14 +45,35 @@ import "container/list"
  * }
  */
 
-// 解法：使用迭代 BFS，而 node.Left node.Right 都為空的值就是最小深度
+// 解法二：遞迴
 func minDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	depth := 0
+	if root.Left != nil && root.Right == nil {
+		return 1 + minDepth(root.Left)
+	}
+	if root.Right != nil && root.Left == nil {
+		return 1 + minDepth(root.Right)
+	}
+	return 1 + min(minDepth(root.Right), minDepth(root.Left))
+}
+
+func min(a, b int) int {
+	if a > b {
+		return b
+	}
+	return a
+}
+
+// 解法一：使用迭代 BFS，而 node.Left node.Right 都為空的值就是最小深度
+func minDepth1(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
 	queue := list.New()
 	queue.PushBack(root)
+	depth := 0
 	for queue.Len() > 0 {
 		length := queue.Len()
 		depth++
