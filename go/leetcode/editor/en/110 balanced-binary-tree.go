@@ -49,12 +49,10 @@ func isBalanced(root *TreeNode) bool {
 	if root == nil {
 		return true
 	}
-	if !isBalanced(root.Left) || !isBalanced(root.Right) {
-		return false
-	}
-	leftHeight := 1 + maxDepth(root.Left)
-	rightHeight := 1 + maxDepth(root.Right)
-	return !(abs(leftHeight-rightHeight) > 1)
+	leftHeight := 1 + maxDepth(root.Left)   // 左
+	rightHeight := 1 + maxDepth(root.Right) // 右
+	// 中：檢查左右樹是否符合平衡樹
+	return !(abs(leftHeight-rightHeight) > 1) && isBalanced(root.Left) && isBalanced(root.Right)
 }
 
 func maxDepth(node *TreeNode) int {
