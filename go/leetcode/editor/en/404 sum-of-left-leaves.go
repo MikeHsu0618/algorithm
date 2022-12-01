@@ -1,5 +1,7 @@
 package main
 
+import "container/list"
+
 //Given the root of a binary tree, return the sum of all left leaves.
 //
 // A leaf is a node with no children. A left leaf is a leaf that is the left
@@ -42,8 +44,30 @@ package main
  *     Right *TreeNode
  * }
  */
-// 解法二：優化解法一
+// 解法三：迭代 DFS 前序
 func sumOfLeftLeaves(root *TreeNode) int {
+	if root == nil {
+		return 0
+	}
+	count := 0
+	stake := list.New()
+	stake.PushBack(root)
+	for stake.Len() > 0 {
+		node := stake.Remove(stake.Back()).(*TreeNode)
+		if node == nil {
+			continue
+		}
+		if node.Left != nil && node.Left.Left == nil && node.Left.Right == nil {
+			count += node.Left.Val
+		}
+		stake.PushBack(node.Right)
+		stake.PushBack(node.Left)
+	}
+	return count
+}
+
+// 解法二：優化解法一
+func sumOfLeftLeaves2(root *TreeNode) int {
 	return LeftNodesSum(root)
 }
 
