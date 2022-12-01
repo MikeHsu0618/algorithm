@@ -42,7 +42,31 @@ import "container/list"
  *     Right *TreeNode
  * }
  */
+
+// 解法二：遞迴 DFS 後序
 func maxDepth(root *TreeNode) int {
+	return getDepth(root)
+}
+
+func getDepth(node *TreeNode) int {
+	if node == nil {
+		return 0
+	}
+	leftDepth := getDepth(node.Left)
+	rightDepth := getDepth(node.Right)
+	depth := 1 + max(leftDepth, rightDepth)
+	return depth
+}
+
+func max(a, b int) int {
+	if a < b {
+		return b
+	}
+	return a
+}
+
+// 解法一：迭代 BFS 輕鬆算出高度
+func maxDepth1(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
