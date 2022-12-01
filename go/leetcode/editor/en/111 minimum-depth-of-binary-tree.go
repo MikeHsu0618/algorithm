@@ -45,17 +45,19 @@ import "container/list"
  * }
  */
 
-// 解法二：遞迴
+// 解法二：遞迴 DFS 後序
 func minDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	if root.Left != nil && root.Right == nil {
-		return 1 + minDepth(root.Left)
-	}
+	// 只根節點有一邊為 nil 時，則以另一邊為依據
 	if root.Right != nil && root.Left == nil {
 		return 1 + minDepth(root.Right)
 	}
+	if root.Left != nil && root.Right == nil {
+		return 1 + minDepth(root.Left)
+	}
+	// 兩邊為 nil 的話才取最小值
 	return 1 + min(minDepth(root.Right), minDepth(root.Left))
 }
 
