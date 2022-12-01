@@ -48,8 +48,17 @@ package main
  *     Right *TreeNode
  * }
  */
+
+//  解法三：優化解法二
+func isSameTree(p, q *TreeNode) bool {
+	if p == nil || q == nil {
+		return p == q
+	}
+	return p.Val == q.Val && isSameTree(p.Left, q.Left) && isSameTree(p.Right, q.Right)
+}
+
 // 解法二：遞迴 DFS 前序
-func isSameTree(p *TreeNode, q *TreeNode) bool {
+func isSameTree2(p *TreeNode, q *TreeNode) bool {
 	var compare func(left, right *TreeNode) bool
 	compare = func(left, right *TreeNode) bool {
 		if left == nil && right == nil {
