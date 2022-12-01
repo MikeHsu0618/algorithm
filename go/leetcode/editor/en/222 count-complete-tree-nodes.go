@@ -71,9 +71,11 @@ func countNodes(root *TreeNode) int {
 		right = right.Right
 		rightLen++
 	}
+	// 當發現此樹為完全二叉樹時，直接利用特性
 	if leftLen == rightLen {
 		return 2<<leftLen - 1
 	}
+	// 當此樹不為完全二叉數時，正常 count 二叉樹
 	return 1 + countNodes(root.Left) + countNodes(root.Right)
 }
 
