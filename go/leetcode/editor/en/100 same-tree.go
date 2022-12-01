@@ -48,7 +48,23 @@ package main
  *     Right *TreeNode
  * }
  */
+// 解法二：遞迴 DFS 前序
 func isSameTree(p *TreeNode, q *TreeNode) bool {
+	var compare func(left, right *TreeNode) bool
+	compare = func(left, right *TreeNode) bool {
+		if left == nil && right == nil {
+			return true
+		}
+		if left == nil || right == nil || left.Val != right.Val {
+			return false
+		}
+		return compare(left.Left, right.Left) && compare(left.Right, right.Right)
+	}
+	return compare(p, q)
+}
+
+// 解法一：迭代 DFS 前序
+func isSameTree1(p *TreeNode, q *TreeNode) bool {
 	queue := make([]*TreeNode, 0)
 	queue = append(queue, p, q)
 	for len(queue) > 0 {
@@ -60,7 +76,6 @@ func isSameTree(p *TreeNode, q *TreeNode) bool {
 		if left == nil || right == nil || left.Val != right.Val {
 			return false
 		}
-		// 同時比對兩顆樹
 		queue = append(queue, left.Left, right.Left, left.Right, right.Right)
 	}
 	return true
