@@ -1,5 +1,7 @@
 package main
 
+import "container/list"
+
 //Given the root of a binary tree and an integer targetSum, return true if the
 //tree has a root-to-leaf path such that adding up all the values along the path
 //equals targetSum.
@@ -55,7 +57,35 @@ package main
  *     Right *TreeNode
  * }
  */
+type Item struct {
+	node *TreeNode
+	val  int
+}
+
+// 解法二：隱藏回溯的迭代 DFS
 func hasPathSum(root *TreeNode, targetSum int) bool {
+	if root == nil {
+		return false
+	}
+	stack := list.New()
+	stack.PushBack(Item{root, root.Val})
+	for stack.Len() > 0 {
+		item := stack.Remove(stack.Back()).(Item)
+		if item.node.Left == nil && item.node.Right == nil && item.val == targetSum {
+			return true
+		}
+		if item.node.Right != nil {
+			stack.PushBack(Item{item.node.Right, item.val + item.node.Right.Val})
+		}
+		if item.node.Left != nil {
+			stack.PushBack(Item{item.node.Left, item.val + item.node.Left.Val})
+		}
+	}
+	return false
+}
+
+// 解法一：隱藏回朔的遞迴 DFS
+func hasPathSum1(root *TreeNode, targetSum int) bool {
 	if root == nil {
 		return false
 	}
