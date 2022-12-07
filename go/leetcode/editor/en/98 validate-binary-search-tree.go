@@ -71,7 +71,7 @@ func isValidBST(root *TreeNode) bool {
 }
 
 // 解法一：遞迴
-func isValidBST(root *TreeNode) bool {
+func isValidBST1(root *TreeNode) bool {
 	return check(root, math.MinInt64, math.MaxInt64)
 }
 
