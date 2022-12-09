@@ -53,7 +53,7 @@ package main
 //leetcode submit region begin(Prohibit modification and deletion)
 // 回溯三部曲：遞迴參數、終止條件、單層判斷邏輯
 // 優化：剪枝（提早退出）
-func combinationSum(candidates []int, target int) [][]int {
+func combinationSum1(candidates []int, target int) [][]int {
 	var track []int
 	var res [][]int
 	backtracking(0, 0, target, candidates, track, &res)
@@ -84,6 +84,31 @@ func backtracking(startIndex, sum, target int, candidates []int, track []int, re
 		track = track[:len(track)-1]
 		sum -= candidates[i]
 	}
+}
+
+func combinationSum(candidates []int, target int) [][]int {
+	res := make([][]int, 0)
+	path := make([]int, 0)
+	sum := 0
+	var backTracing func(index int)
+	backTracing = func(index int) {
+		if sum > target {
+			return
+		}
+		if sum == target {
+			res = append(res, append([]int{}, path...))
+			return
+		}
+		for i := index; i < len(candidates); i++ {
+			sum += candidates[i]
+			path = append(path, candidates[i])
+			backTracing(i)
+			sum -= candidates[i]
+			path = path[:len(path)-1]
+		}
+	}
+	backTracing(0)
+	return res
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
