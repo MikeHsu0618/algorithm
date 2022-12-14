@@ -43,8 +43,24 @@ import "container/list"
  * }
  */
 
+// 重點：前序可以算出從上往下算出深度，後序可以由下往上算出高度
+
+// 解法三：遞迴 DFS 前序
+func maxDepth3(root *TreeNode) int {
+	var getDepth func(node *TreeNode) int
+	getDepth = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		leftDepth := 1 + getDepth(node.Left)
+		rightDepth := 1 + getDepth(node.Right)
+		return max(leftDepth, rightDepth)
+	}
+	return getDepth(root)
+}
+
 // 解法二：遞迴 DFS 後序
-func maxDepth(root *TreeNode) int {
+func maxDepth2(root *TreeNode) int {
 	return getDepth(root)
 }
 
@@ -65,8 +81,8 @@ func max(a, b int) int {
 	return a
 }
 
-// 解法一：迭代 BFS 輕鬆算出高度
-func maxDepth1(root *TreeNode) int {
+// 解法一：迭代 BFS 簡單算出高度
+func maxDepth(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
