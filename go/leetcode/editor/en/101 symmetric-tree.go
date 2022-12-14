@@ -41,7 +41,22 @@ package main
  *     Right *TreeNode
  * }
  */
-// 解法一： 使用相反走法來, 兩兩比較左樹右樹節點是否相同
+// 解法二： 遞迴 DFS 前序
+func isSymmetric2(root *TreeNode) bool {
+	return traversal(root.Left, root.Right)
+}
+
+func traversal(left *TreeNode, right *TreeNode) bool {
+	if left == nil && right == nil {
+		return true
+	}
+	if left == nil || right == nil || left.Val != right.Val {
+		return false
+	}
+	return traversal(left.Left, right.Right) && traversal(left.Right, right.Left)
+}
+
+// 解法一：迭代 BFS 使用相反走法來一一比較是否相同
 func isSymmetric(root *TreeNode) bool {
 	queue := make([]*TreeNode, 0)
 	queue = append(queue, root.Left, root.Right)
