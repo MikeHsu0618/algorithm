@@ -49,6 +49,22 @@ func searchInsert(nums []int, target int) int {
 			l = mid + 1
 			continue
 		}
+		if target <= nums[mid] {
+			r = mid - 1
+			continue
+		}
+	}
+	return l
+}
+
+func searchInsert1(nums []int, target int) int {
+	l, r := 0, len(nums)-1
+	for l <= r {
+		mid := (l + r) / 2
+		if target > nums[mid] {
+			l = mid + 1
+			continue
+		}
 		if target < nums[mid] {
 			r = mid - 1
 			continue
