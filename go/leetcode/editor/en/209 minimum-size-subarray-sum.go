@@ -93,4 +93,25 @@ func minSubArrayLen1(target int, nums []int) int {
 	return min
 }
 
+func minSubArrayLen2(target int, nums []int) int {
+	minLen := len(nums) + 1 // 排除所有可能
+	sum := 0
+	start := 0
+	for end := 0; end < len(nums); end++ {
+		sum += nums[end]
+		for sum >= target {
+			if end-start+1 < minLen {
+				minLen = end - start + 1
+			}
+			sum -= nums[start]
+			start++
+		}
+	}
+
+	if minLen == len(nums)+1 {
+		return 0
+	}
+	return minLen
+}
+
 //leetcode submit region end(Prohibit modification and deletion)
