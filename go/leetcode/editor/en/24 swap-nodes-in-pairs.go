@@ -63,4 +63,19 @@ func swapPairs(head *ListNode) *ListNode {
 	return dummy.Next
 }
 
+// dummy -> 1 -> 2 -> 3 => dummy -> 2 -> 1 -> 3
+func swapPairs1(head *ListNode) *ListNode {
+	dummy := &ListNode{Next: head}
+	cur := dummy
+
+	for cur.Next != nil && cur.Next.Next != nil {
+		first, second, third := cur.Next, cur.Next.Next, cur.Next.Next.Next
+		cur.Next = second
+		cur.Next.Next = first
+		cur.Next.Next.Next = third
+		cur = cur.Next.Next
+	}
+	return dummy.Next
+}
+
 //leetcode submit region end(Prohibit modification and deletion)
