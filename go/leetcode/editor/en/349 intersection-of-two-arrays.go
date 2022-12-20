@@ -50,4 +50,22 @@ func intersection(nums1 []int, nums2 []int) []int {
 	return res
 }
 
+func intersection1(nums1 []int, nums2 []int) []int {
+	res := make([]int, 0)
+	m := make(map[int]struct{}, 0)
+
+	for i := 0; i < len(nums1); i++ {
+		m[nums1[i]] = struct{}{}
+	}
+
+	for i := 0; i < len(nums2); i++ {
+		if _, ok := m[nums2[i]]; !ok {
+			continue
+		}
+		res = append(res, nums2[i])
+		delete(m, nums2[i])
+	}
+	return res
+}
+
 //leetcode submit region end(Prohibit modification and deletion)
