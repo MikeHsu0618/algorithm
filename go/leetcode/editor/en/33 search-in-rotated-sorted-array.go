@@ -43,29 +43,34 @@ package main
 //leetcode submit region begin(Prohibit modification and deletion)
 // 使用二分搜尋法，並判斷 target 位於哪一側，直到找到為止
 func search(nums []int, target int) int {
-	if len(nums) == 0 {
-		return -1
-	}
+	l, r := 0, len(nums)-1
 
-	left, right := 0, len(nums)-1
-	for left <= right {
-		middle := (left + right) / 2
-		if nums[middle] == target {
-			return middle
+	for l <= r {
+		mid := (l + r) / 2
+
+		if nums[mid] == target {
+			return mid
 		}
-		// 找到被排序的那一側
-		if nums[middle] < nums[right] {
-			if target > nums[middle] && target <= nums[right] {
-				left = middle + 1
-			} else {
-				right = middle - 1
+
+		// 關鍵在於確認哪一邊為 sorted side
+		if nums[mid] < nums[r] {
+			// 如果 target 不再這個範圍就把這個 sorted side 捨棄
+			if target > nums[mid] && nums[r] >= target {
+				l = mid + 1
+				continue
 			}
-		} else {
-			if target < nums[middle] && target >= nums[left] {
-				right = middle - 1
-			} else {
-				left = middle + 1
+			// 如果超出邊界，左邊的數值一定比右邊大
+			r = mid - 1
+			continue
+		}
+
+		if nums[l] <= nums[mid] {
+			if nums[mid] > target && target >= nums[l] {
+				r = mid - 1
+				continue
 			}
+			l = mid + 1
+			continue
 		}
 	}
 	return -1
