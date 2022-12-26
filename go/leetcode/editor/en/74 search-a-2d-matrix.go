@@ -38,6 +38,29 @@ package main
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func searchMatrix(matrix [][]int, target int) bool {
+	rowLen, colLen := len(matrix), len(matrix[0])
+	l, r := 0, rowLen*colLen-1
+
+	for l <= r {
+		mid := (l + r) / 2
+
+		row, col := mid/colLen, mid%colLen
+		if matrix[row][col] > target {
+			r = mid - 1
+			continue
+		}
+
+		if matrix[row][col] < target {
+			l = mid + 1
+			continue
+		}
+		return true
+	}
+
+	return false
+}
+
+func searchMatrix1(matrix [][]int, target int) bool {
 	// 需要從 row 由大到小檢查下來
 	r, c := len(matrix)-1, 0
 
