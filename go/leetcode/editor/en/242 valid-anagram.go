@@ -34,17 +34,26 @@ func isAnagram(s string, t string) bool {
 	if len(s) != len(t) {
 		return false
 	}
-	m := make(map[byte]int, 26)
+
+	// 遍歷 s 加進 hash map 中
+	m := make(map[int]int, 0)
 	for i := 0; i < len(s); i++ {
-		m[s[i]]++
+		m[int(s[i]-'a')]++
 	}
+	// 遍歷 t 來比較 hash map，當數值歸零時需刪除該元素
 	for i := 0; i < len(t); i++ {
-		if v, ok := m[t[i]]; !ok || v <= 0 {
-			return false
+		if _, ok := m[int(t[i]-'a')]; ok {
+			m[int(t[i]-'a')]--
+			if m[int(t[i]-'a')] == 0 {
+				delete(m, int(t[i]-'a'))
+			}
+			continue
 		}
-		m[t[i]]--
+
+		return false
 	}
-	return true
+	// 比較 hash map 是否剛好歸零
+	return len(m) == 0
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
