@@ -1,5 +1,7 @@
 package main
 
+import "sort"
+
 //Given an array of distinct integers candidates and a target integer target,
 //return a list of all unique combinations of candidates where the chosen numbers
 //sum to target. You may return the combinations in any order.
@@ -86,12 +88,12 @@ func backtracking(startIndex, sum, target int, candidates []int, track []int, re
 	}
 }
 
-func combinationSum(candidates []int, target int) [][]int {
+func combinationSum2(candidates []int, target int) [][]int {
 	res := make([][]int, 0)
 	path := make([]int, 0)
 	sum := 0
-	var backTracing func(index int)
-	backTracing = func(index int) {
+	var backtracking func(index int)
+	backtracking = func(index int) {
 		if sum > target {
 			return
 		}
@@ -99,15 +101,44 @@ func combinationSum(candidates []int, target int) [][]int {
 			res = append(res, append([]int{}, path...))
 			return
 		}
+
 		for i := index; i < len(candidates); i++ {
 			sum += candidates[i]
 			path = append(path, candidates[i])
-			backTracing(i)
+			backtracking(i)
 			sum -= candidates[i]
 			path = path[:len(path)-1]
 		}
 	}
-	backTracing(0)
+	backtracking(0)
+	return res
+}
+
+// 優化上個解法：先把 candidates 排列，可以減少多餘的遞迴
+func combinationSum(candidates []int, target int) [][]int {
+	sort.Ints(candidates)
+	res := make([][]int, 0)
+	path := make([]int, 0)
+	sum := 0
+	var backtracking func(index int)
+	backtracking = func(index int) {
+		if sum > target {
+			return
+		}
+		if sum == target {
+			res = append(res, append([]int{}, path...))
+			return
+		}
+		// 剪枝
+		for i := index; i < len(candidates) && sum+candidates[i] <= target; i++ {
+			sum += candidates[i]
+			path = append(path, candidates[i])
+			backtracking(i)
+			sum -= candidates[i]
+			path = path[:len(path)-1]
+		}
+	}
+	backtracking(0)
 	return res
 }
 
