@@ -51,7 +51,7 @@ import "math"
  *     Right *TreeNode
  * }
  */
-// 解法二：遞迴 DFS 中序 (左右中的遍歷順序剛好就符合二元搜尋樹)
+// 解法二：遞迴 DFS 中序 (左中右的遍歷順序剛好就符合二元搜尋樹)
 func isValidBST(root *TreeNode) bool {
 	var pre *TreeNode
 	var isValid func(node *TreeNode) bool
